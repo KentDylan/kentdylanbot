@@ -5,9 +5,13 @@
     <pattern>*</pattern>
     <template>
         <random>
-            <li>Halo! Aku bot yang bisa jelasin soal penelitian "Normalisasi Bahasa Gaul". Mau tanya apa?</li>
-            <li>Hai! Topik UTS Kelompok 9 itu menarik. Coba tanya soal "metode penelitian" atau "hasil penelitian" deh.</li>
-            <li>Maaf, aku belum ngerti itu. Coba tanya: "Apa masalah utama penelitian ini?"</li>
+            <li>Maaf, aku belum diprogram untuk itu.</li>
+            <li>Bisa katakan dengan cara lain? Aku fokus di topik jurnal Normalisasi Bahasa Gaul.</li>
+            <li>Aku belum ngerti. Coba tanya: "Apa masalah penelitian ini?"</li>
+            <li><condition name="nama">
+                <li><value>*</value>Halo <get name="nama"/>, aku belum ngerti maksudmu. Coba tanya soal "metode penelitian".</li>
+                <li>Aku bingung. Coba tanya soal "hasil penelitian".</li>
+            </condition></li>
         </random>
     </template>
 </category>
@@ -15,123 +19,282 @@
 <category>
     <pattern>HALO</pattern>
     <template>
-        <srai>*</srai>
+        <random>
+            <li>Halo! Aku bot Asisten Jurnal. Aku bisa jawab pertanyaan soal penelitian "Normalisasi Bahasa Gaul Berbasis Konteks Semantik"[cite: 953].</li>
+            <li>Hai! Siap membantu kamu bedah jurnal UTS Kelompok 9. Mau mulai dari mana?</li>
+        </random>
+        <think><set name="topic">unknown</set></think> </template>
+</category>
+
+<category>
+    <pattern>NAMA SAYA *</pattern>
+    <template>
+        Oke, <set name="nama"><star/></set>! Namamu sudah kusimpan[cite: 821, 826]. Senang bisa bantu kamu.
     </template>
 </category>
 
 <category>
-    <pattern>HAI</pattern>
+    <pattern>SIAPA NAMA SAYA</pattern>
     <template>
-        <srai>*</srai>
+        <condition name="nama">
+            <li><value>*</value>Nama kamu <get name="nama"/>. Aku ingat! [cite: 831, 888]</li>
+            <li>Kamu belum memberitahu namamu. Ketik "Nama saya (namamu)".</li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern>APA MASALAH PENELITIAN INI</pattern>
+    <template>
+        Masalah utamanya adalah penggunaan bahasa gaul atau slang (kayak "gw", "gk", "bgt")  di media sosial[cite: 959]. Ini bikin sistem NLP kesulitan memahami makna teks secara akurat , sehingga menurunkan akurasi aplikasi kayak analisis sentimen atau chatbot[cite: 973].
+    </template>
+</category>
+
+<category>
+    <pattern>LATAR BELAKANGNYA APA</pattern>
+    <template>
+        <srai>APA MASALAH PENELITIAN INI</srai> </template>
+</category>
+
+<category>
+    <pattern>KENAPA PENELITIAN INI PENTING</pattern>
+    <template>
+        <srai>APA MASALAH PENELITIAN INI</srai> </template>
+</category>
+
+<category>
+    <pattern>APA TUJUAN PENELITIAN INI</pattern>
+    <template>
+        Penelitian ini bertujuan merancang sistem deteksi dan normalisasi bahasa gaul pada teks bahasa Indonesia[cite: 961]. Sistem ini menggabungkan pendekatan rule-based (kamus) [cite: 962] dan konteks semantik dari model Transformer, khususnya IndoBERT[cite: 961].
     </template>
 </category>
 
 
 <category>
-    <pattern>PENELITIAN INI TENTANG APA</pattern>
+    <pattern>DATASETNYA DARI MANA</pattern>
     <template>
-        Penelitian ini (UTS Kelompok 9) bertujuan merancang sistem deteksi dan normalisasi bahasa gaul pada teks bahasa Indonesia[cite: 10]. Tujuannya agar NLP bisa paham teks informal[cite: 14].
+        Datasetnya berasal dari kumpulan komentar publik di platform Instagram  dan disimpan dalam format Excel.
     </template>
 </category>
 
 <category>
-    <pattern>APA TUJUANNYA</pattern>
+    <pattern>APA SAJA ISI DATASETNYA</pattern>
     <template>
-        <srai>PENELITIAN INI TENTANG APA</srai>
+        Datasetnya punya tiga kolom utama: (1) 'instagram' (teks komentar asli), (2) 'true_slang' (daftar kata slang yang benar), dan (3) 'true_normalized' (hasil normalisasi manual untuk evaluasi)[cite: 986].
     </template>
 </category>
 
 <category>
-    <pattern>APA MASALAHNYA</pattern>
+    <pattern>APA ITU PRA PEMROSESAN DI JURNAL INI</pattern>
     <template>
-        Masalahnya, bahasa gaul kayak "gw", "gk", atau "bgt" [cite: 9] bikin sistem Natural Language Processing (NLP) kesulitan memahami makna teks[cite: 9]. Ini bisa nurunin akurasi aplikasi kayak analisis sentimen atau chatbot[cite: 22].
+        Pra-pemrosesan adalah tahap membersihkan data sebelum dipakai. Tahapannya ada 3:
+        1. Pembersihan Noise: Hapus URL, @username, tagar (#), angka, dan tanda baca berlebih[cite: 988].
+        2. Case Folding: Ubah semua teks jadi huruf kecil (lowercasing)[cite: 989].
+        3. Normalisasi Spasi: Hapus spasi berlebih[cite: 990].
     </template>
 </category>
 
 <category>
-    <pattern>KENAPA BAHASA GAUL JADI MASALAH</pattern>
+    <pattern>JELASKAN METODE PENELITIANNYA</pattern>
     <template>
-        <srai>APA MASALAHNYA</srai>
+        Metodologinya menggunakan Arsitektur Sistem Hibrida [cite: 992, 1002] (lihat Gambar 1).
+        Sistem ini menggabungkan dua pendekatan utama.
+        <set name="topic">METODE</set> Kita sekarang masuk ke topik METODE[cite: 923]. Kamu bisa tanya:
+        1. "Jelaskan pendekatan pertama"
+        2. "Jelaskan pendekatan kedua"
+        Katakan "Selesai bahas metode" untuk keluar[cite: 924].
     </template>
 </category>
 
 <category>
-    <pattern>GIMANA METODENYA</pattern>
+    <pattern>GIMANA ARSITEKTURNYA</pattern>
     <template>
-        Sistem ini pakai metode HIBRIDA[cite: 27, 41], nggabungin dua pendekatan. Ada "Jalur Cepat" pakai kamus, dan "Jalur Cerdas" pakai IndoBERT[cite: 47, 48].
-        Mau tau lebih detail soal "Jalur Cepat" atau "Jalur Cerdas"?
-        <set name="topic">METODE</set>
+        <srai>JELASKAN METODE PENELITIANNYA</srai>
     </template>
 </category>
 
-<category>
-    <pattern>GIMANA CARA KERJANYA</pattern>
-    <template>
-        <srai>GIMANA METODENYA</srai>
-    </template>
-</category>
-
-<topic name="METODE">
-    <category>
-        <pattern>JALUR CEPAT</pattern>
+<topic name="METODE"> <category>
+        <pattern>JELASKAN PENDEKATAN PERTAMA</pattern>
         <template>
-            Jalur Cepat itu pakai pendekatan berbasis kamus (rule-based)[cite: 52]. Kalau ada kata yang cocok di kamus (misal "bgt"), katanya langsung diganti jadi "banget"[cite: 55]. Ini prosesnya sangat cepat[cite: 53].
-            Masih mau lanjut bahas metode? (Ketik "Jalur Cerdas" atau "Selesai")
+            Pendekatan pertama adalah Berbasis Kamus (Rule-Based)[cite: 1003]. Ini disebut "Jalur Cepat"[cite: 998].
+            Sistem akan cek setiap kata[cite: 996]. Jika kata itu ada di kamus slang, kata itu akan langsung diganti ke bentuk baku[cite: 1004, 1006].
+            Ada lagi yang mau ditanya soal metode? (Coba: "Jelaskan pendekatan kedua")
+        </template>
+    </category>
+    
+    <category>
+        <pattern>JELASKAN JALUR CEPAT</pattern>
+        <template>
+            <srai>JELASKAN PENDEKATAN PERTAMA</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>JELASKAN PENDEKATAN KEDUA</pattern>
+        <template>
+            Pendekatan kedua adalah Kontekstual (Transformer IndoBERT)[cite: 1008]. Ini disebut "Jalur Cerdas"[cite: 999].
+            Ini dipakai untuk kata-kata yang "Tidak Dikenal" atau tidak ada di kamus[cite: 1008].
+            Ada lagi yang mau ditanya soal metode? (Coba: "IndoBERT ngapain?")
         </template>
     </category>
 
     <category>
-        <pattern>JALUR CERDAS</pattern>
+        <pattern>INDOBERT NGAPAIN</pattern>
         <template>
-            Jalur Cerdas dipakai kalau katanya TIDAK DIKENAL di kamus[cite: 46, 57]. Sistemnya pakai model IndoBERT [cite: 57] buat ngitung 'cosine similarity'[cite: 59]. Gampangnya, IndoBERT nyari kata formal yang maknanya paling mirip secara konteks[cite: 63].
-            Masih mau lanjut bahas metode? (Ketik "Jalur Cepat" atau "Selesai")
+            IndoBERT dipakai untuk menghitung 'cosine similarity' (kemiripan kosinus)[cite: 1010].
+            Singkatnya: Vektor kata slang yang tidak dikenal akan dibandingkan dengan semua vektor kata di kamus formal[cite: 1010]. Kata formal yang punya kemiripan makna paling tinggi (di atas ambang batas) akan dipilih sebagai hasil normalisasi[cite: 1014].
         </template>
     </category>
 
     <category>
-        <pattern>SELESAI</pattern>
+        <pattern>MODEL INDOBERT APA YANG DIPAKAI</pattern>
         <template>
-            Oke, kita selesai bahas metode. Mau tanya soal "Hasil Penelitian" atau "Kesimpulan"?
-            <set name="topic">unknown</set>
+            Model yang dipakai adalah 'indolem/indobert-base-uncased'[cite: 1008].
+        </template>
+    </category>
+
+    <category>
+        <pattern>SELESAI BAHAS METODE</pattern>
+        <template>
+            Oke, kita selesai bahas metode[cite: 946].
+            <set name="topic">unknown</set> Mau ngobrolin apa lagi? Coba tanya soal "Hasil dan Evaluasi".
+        </template>
+    </category>
+    
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <random>
+                <li>Kita masih di dalam topik METODE[cite: 923].</li>
+                <li>Coba tanya soal "Jalur Cepat", "Jalur Cerdas", atau "IndoBERT ngapain".</li>
+                <li>Katakan "Selesai bahas metode" untuk keluar dari topik ini[cite: 924].</li>
+            </random>
         </template>
     </category>
 </topic>
 
 <category>
-    <pattern>GIMANA HASIL PENELITIAN</pattern>
+    <pattern>GIMANA CARA EVALUASINYA</pattern>
     <template>
-        Hasilnya ada dua:
-        1. Kualitas Normalisasi (Skor BLEU): 0.84. Ini TINGGI, artinya kalimat hasil normalisasi udah bagus dan mirip referensi[cite: 102, 103].
-        2. Deteksi Slang (F1-score): 0.3125. Ini RENDAH[cite: 94, 96], artinya sistemnya masih kurang jago ngenalin kata mana yang slang dan mana yang bukan.
+        Evaluasi sistem dilakukan pakai dua set metrik utama[cite: 1018].
+        <set name="topic">EVALUASI</set> Kita masuk topik EVALUASI. Kamu bisa tanya:
+        1. "Evaluasi deteksi slang"
+        2. "Evaluasi kualitas normalisasi"
+        Katakan "Selesai bahas evaluasi" untuk keluar.
     </template>
 </category>
 
-<category>
-    <pattern>KENAPA HASIL DETEKSI RENDAH</pattern>
-    <template>
-        F1-score-nya rendah (0.3125) [cite: 96] kemungkinan besar karena keterbatasan cakupan kamus slang-nya[cite: 98, 141]. Jadi, banyak kata slang baru yang nggak kedeteksi sama kamus.
-    </template>
-</category>
+<topic name="EVALUASI">
+    <category>
+        <pattern>EVALUASI DETEKSI SLANG</pattern>
+        <template>
+            Untuk mengukur kemampuan deteksi slang, metrik yang dipakai adalah Precision, Recall, dan F1-score[cite: 1019].
+        </template>
+    </category>
+
+    <category>
+        <pattern>EVALUASI KUALITAS NORMALISASI</pattern>
+        <template>
+            Untuk mengukur kualitas hasil normalisasi, metrik yang dipakai adalah BLEU (Bilingual Evaluation Understudy) Score[cite: 1032].
+        </template>
+    </category>
+    
+    <category>
+        <pattern>GIMANA HASIL PENELITIANNYA</pattern>
+        <template>
+            Hasilnya ada dua (lihat Tabel 1 dan 2)[cite: 1045, 1056]:
+            1. (Deteksi) F1-score: 0.3125. Ini terbilang RENDAH[cite: 1047, 1049].
+            2. (Kualitas) BLEU score: 0.84. Ini terbilang TINGGI[cite: 1053, 1054].
+        </template>
+    </category>
+    
+    <category>
+        <pattern>KENAPA F1 SCORE RENDAH</pattern>
+        <template>
+            F1-score rendah (0.3125) karena tantangan utama ada di kelengkapan deteksi (Recall)[cite: 1048]. Ini disebabkan oleh keterbatasan cakupan kamus slang[cite: 1049]. Banyak kata slang baru tidak terdeteksi oleh kamus[cite: 1049].
+        </template>
+    </category>
+    
+    <category>
+        <pattern>KENAPA BLEU SCORE TINGGI</pattern>
+        <template>
+            Skor BLEU tinggi (0.84) karena kalimat yang dihasilkan oleh sistem (setelah dinormalisasi) punya kesamaan semantik dan struktural yang kuat dengan kalimat formal referensi (hasil manual)[cite: 1054].
+        </template>
+    </category>
+
+    <category>
+        <pattern>SELESAI BAHAS EVALUASI</pattern>
+        <template>
+            Oke, kita selesai bahas evaluasi.
+            <set name="topic">unknown</set> Mau tanya "Kesimpulan" atau "Contoh normalisasi"?
+        </template>
+    </category>
+    
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <random>
+                <li>Kita masih di dalam topik EVALUASI.</li>
+                <li>Coba tanya: "Gimana hasil penelitiannya", "Kenapa F1 score rendah", atau "Kenapa BLEU score tinggi".</li>
+                <li>Katakan "Selesai bahas evaluasi" untuk keluar.</li>
+            </random>
+        </template>
+    </category>
+</topic>
+
 
 <category>
     <pattern>APA KESIMPULANNYA</pattern>
     <template>
-        Kesimpulannya, arsitektur hibrida (kamus + IndoBERT) ini berhasil[cite: 138]. Tantangan utamanya bukan di arsitekturnya, tapi di KUALITAS DATA, yaitu kamus slang yang kurang lengkap dan dataset ground truth yang terbatas[cite: 140, 141].
+        Kesimpulannya, arsitektur hibrida (kamus + IndoBERT) ini telah berhasil dirancang.
+        Tantangan utama yang bikin F1-score rendah (0.3125) [cite: 1090] BUKAN pada arsitektur sistemnya, tapi pada KUALITAS dan KUANTITAS data pendukung, yaitu kamus slang yang terbatas dan dataset ground truth[cite: 1091, 1092].
     </template>
 </category>
 
 <category>
-    <pattern>KASIH CONTOH</pattern>
+    <pattern>KATA SLANG APA YANG PALING SERING</pattern>
     <template>
-        Oke, ini contohnya: Komentar asli "gk ngerti ama omongan dia" dinormalisasi jadi "tidak mengerti dengan omongan dia"[cite: 105]. Mau contoh lagi?
+        Berdasarkan Gambar 2 (Distribusi Top 10 Kata Slang)[cite: 1068, 1087]:
+        1. "ga" (tidak) -> 20.0% [cite: 1067]
+        2. "yg" (yang) -> 15.3% [cite: 1069]
+        3. "tapi" (tetapi) -> 14.1% [cite: 1070]
+    </template>
+</category>
+
+<category>
+    <pattern>KASIH CONTOH NORMALISASI</pattern>
+    <template>
+        Oke, ini contoh dari Tabel 2[cite: 1056]:
+        Komentar Asli: "gk ngerti ama omongan dia"
+        Hasil Normalisasi: "tidak mengerti dengan omongan dia"[cite: 1056].
+        Mau contoh lain?
     </template>
 </category>
 
 <category>
     <pattern>CONTOH LAGI</pattern>
-    <that>MAU CONTOH LAGI</that>
+    <that>MAU CONTOH LAIN</that> <template>
+        Siap. Contoh lain dari Tabel 2[cite: 1056]:
+        Komentar Asli: "keren bgt, gw pgn beli jg"
+        Hasil Normalisasi: "keren banget, saya ingin beli juga"[cite: 1056].
+    </template>
+</category>
+
+<category>
+    <pattern>YA MAU</pattern>
+    <that>MAU CONTOH LAIN</that> <template>
+        <srai>CONTOH LAGI</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>TERIMA KASIH</pattern>
     <template>
-        Siap. Contoh lain: "keren bgt, gw pgn beli jg" dinormalisasi jadi "keren banget, saya ingin beli juga"[cite: 105].
+        <random>
+            <li>Sama-sama! Senang bisa membantu[cite: 676].</li>
+            <li>Sama-sama! Semoga sukses dengan tugasnya.</li>
+            <li><condition name="nama"><value>*</value>Sama-sama, <get name="nama"/>!</condition></li>
+        </random>
     </template>
 </category>
 
