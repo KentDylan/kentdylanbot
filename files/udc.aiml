@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+
+<category>
+    <pattern>*</pattern>
+    <template>
+        <random>
+            <li>Halo! Aku bot yang bisa jelasin soal penelitian "Normalisasi Bahasa Gaul". Mau tanya apa?</li>
+            <li>Hai! Topik UTS Kelompok 9 itu menarik. Coba tanya soal "metode penelitian" atau "hasil penelitian" deh.</li>
+            <li>Maaf, aku belum ngerti itu. Coba tanya: "Apa masalah utama penelitian ini?"</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>HALO</pattern>
+    <template>
+        <srai>*</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>HAI</pattern>
+    <template>
+        <srai>*</srai>
+    </template>
+</category>
+
+
+<category>
+    <pattern>PENELITIAN INI TENTANG APA</pattern>
+    <template>
+        Penelitian ini (UTS Kelompok 9) bertujuan merancang sistem deteksi dan normalisasi bahasa gaul pada teks bahasa Indonesia[cite: 10]. Tujuannya agar NLP bisa paham teks informal[cite: 14].
+    </template>
+</category>
+
+<category>
+    <pattern>APA TUJUANNYA</pattern>
+    <template>
+        <srai>PENELITIAN INI TENTANG APA</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>APA MASALAHNYA</pattern>
+    <template>
+        Masalahnya, bahasa gaul kayak "gw", "gk", atau "bgt" [cite: 9] bikin sistem Natural Language Processing (NLP) kesulitan memahami makna teks[cite: 9]. Ini bisa nurunin akurasi aplikasi kayak analisis sentimen atau chatbot[cite: 22].
+    </template>
+</category>
+
+<category>
+    <pattern>KENAPA BAHASA GAUL JADI MASALAH</pattern>
+    <template>
+        <srai>APA MASALAHNYA</srai>
+    </template>
+</category>
+
+<category>
+    <pattern>GIMANA METODENYA</pattern>
+    <template>
+        Sistem ini pakai metode HIBRIDA[cite: 27, 41], nggabungin dua pendekatan. Ada "Jalur Cepat" pakai kamus, dan "Jalur Cerdas" pakai IndoBERT[cite: 47, 48].
+        Mau tau lebih detail soal "Jalur Cepat" atau "Jalur Cerdas"?
+        <set name="topic">METODE</set>
+    </template>
+</category>
+
+<category>
+    <pattern>GIMANA CARA KERJANYA</pattern>
+    <template>
+        <srai>GIMANA METODENYA</srai>
+    </template>
+</category>
+
+<topic name="METODE">
+    <category>
+        <pattern>JALUR CEPAT</pattern>
+        <template>
+            Jalur Cepat itu pakai pendekatan berbasis kamus (rule-based)[cite: 52]. Kalau ada kata yang cocok di kamus (misal "bgt"), katanya langsung diganti jadi "banget"[cite: 55]. Ini prosesnya sangat cepat[cite: 53].
+            Masih mau lanjut bahas metode? (Ketik "Jalur Cerdas" atau "Selesai")
+        </template>
+    </category>
+
+    <category>
+        <pattern>JALUR CERDAS</pattern>
+        <template>
+            Jalur Cerdas dipakai kalau katanya TIDAK DIKENAL di kamus[cite: 46, 57]. Sistemnya pakai model IndoBERT [cite: 57] buat ngitung 'cosine similarity'[cite: 59]. Gampangnya, IndoBERT nyari kata formal yang maknanya paling mirip secara konteks[cite: 63].
+            Masih mau lanjut bahas metode? (Ketik "Jalur Cepat" atau "Selesai")
+        </template>
+    </category>
+
+    <category>
+        <pattern>SELESAI</pattern>
+        <template>
+            Oke, kita selesai bahas metode. Mau tanya soal "Hasil Penelitian" atau "Kesimpulan"?
+            <set name="topic">unknown</set>
+        </template>
+    </category>
+</topic>
+
+<category>
+    <pattern>GIMANA HASIL PENELITIAN</pattern>
+    <template>
+        Hasilnya ada dua:
+        1. Kualitas Normalisasi (Skor BLEU): 0.84. Ini TINGGI, artinya kalimat hasil normalisasi udah bagus dan mirip referensi[cite: 102, 103].
+        2. Deteksi Slang (F1-score): 0.3125. Ini RENDAH[cite: 94, 96], artinya sistemnya masih kurang jago ngenalin kata mana yang slang dan mana yang bukan.
+    </template>
+</category>
+
+<category>
+    <pattern>KENAPA HASIL DETEKSI RENDAH</pattern>
+    <template>
+        F1-score-nya rendah (0.3125) [cite: 96] kemungkinan besar karena keterbatasan cakupan kamus slang-nya[cite: 98, 141]. Jadi, banyak kata slang baru yang nggak kedeteksi sama kamus.
+    </template>
+</category>
+
+<category>
+    <pattern>APA KESIMPULANNYA</pattern>
+    <template>
+        Kesimpulannya, arsitektur hibrida (kamus + IndoBERT) ini berhasil[cite: 138]. Tantangan utamanya bukan di arsitekturnya, tapi di KUALITAS DATA, yaitu kamus slang yang kurang lengkap dan dataset ground truth yang terbatas[cite: 140, 141].
+    </template>
+</category>
+
+<category>
+    <pattern>KASIH CONTOH</pattern>
+    <template>
+        Oke, ini contohnya: Komentar asli "gk ngerti ama omongan dia" dinormalisasi jadi "tidak mengerti dengan omongan dia"[cite: 105]. Mau contoh lagi?
+    </template>
+</category>
+
+<category>
+    <pattern>CONTOH LAGI</pattern>
+    <that>MAU CONTOH LAGI</that>
+    <template>
+        Siap. Contoh lain: "keren bgt, gw pgn beli jg" dinormalisasi jadi "keren banget, saya ingin beli juga"[cite: 105].
+    </template>
+</category>
+
+</aiml>
